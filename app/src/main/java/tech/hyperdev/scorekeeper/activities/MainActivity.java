@@ -8,6 +8,9 @@ import tech.hyperdev.scorekeeper.fragments.ScoreFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String KEY_FRAGMENT_TEAM_ONE = "key-fragment-team-one";
+    private static final String KEY_FRAGMENT_TEAM_TWO = "key-fragment-team-two";
+
     private ScoreFragment mTeamOneFragment;
     private ScoreFragment mTeamTwoFragment;
 
@@ -45,8 +48,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTeamOneFragment = ScoreFragment.newInstance(getString(R.string.text_team_one));
-        mTeamTwoFragment = ScoreFragment.newInstance(getString(R.string.text_team_two));
+        if (savedInstanceState != null) {
+            // Restore the fragments' instance state
+            mTeamOneFragment = (ScoreFragment) getSupportFragmentManager()
+                    .getFragment(savedInstanceState, KEY_FRAGMENT_TEAM_ONE);
+
+            mTeamTwoFragment = (ScoreFragment) getSupportFragmentManager()
+                    .getFragment(savedInstanceState, KEY_FRAGMENT_TEAM_TWO);
+        } else {
+            mTeamOneFragment = ScoreFragment.newInstance(getString(R.string.text_team_one));
+            mTeamTwoFragment = ScoreFragment.newInstance(getString(R.string.text_team_two));
+        }
 
         mTeamOneFragment.setOnCounterIncrementListener(mTeamOneIncrementListener);
         mTeamOneFragment.setOnCounterDecrementListener(mTeamOneDecrementListener);
@@ -56,8 +68,17 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.teamOneContainer, mTeamOneFragment)
-                .add(R.id.teamTwoContainer, mTeamTwoFragment)
+                .replace(R.id.teamOneContainer, mTeamOneFragment)
+                .replace(R.id.teamTwoContainer, mTeamTwoFragment)
                 .commit();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save the fragments' instance state
+        getSupportFragmentManager().putFragment(outState, KEY_FRAGMENT_TEAM_ONE, mTeamOneFragment);
+        getSupportFragmentManager().putFragment(outState, KEY_FRAGMENT_TEAM_TWO, mTeamTwoFragment);
     }
 }

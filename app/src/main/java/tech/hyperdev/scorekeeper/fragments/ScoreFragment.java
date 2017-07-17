@@ -88,6 +88,11 @@ public class ScoreFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         String teamName = getArguments().getString(KEY_TEAM_NAME);
         mTvTeamName.setText(teamName);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
             mCounter = savedInstanceState.getInt(KEY_TEAM_SCORE);
