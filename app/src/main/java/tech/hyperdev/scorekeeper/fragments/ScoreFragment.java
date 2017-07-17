@@ -27,6 +27,7 @@ public class ScoreFragment extends Fragment implements View.OnClickListener {
     }
 
     private static final String KEY_TEAM_NAME = "key-team-name";
+    private static final String KEY_TEAM_SCORE = "key-team-score";
 
     private TextView mTvTeamName;
     private TextView mTvCounter;
@@ -87,6 +88,16 @@ public class ScoreFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         String teamName = getArguments().getString(KEY_TEAM_NAME);
         mTvTeamName.setText(teamName);
+
+        if (savedInstanceState != null) {
+            mCounter = savedInstanceState.getInt(KEY_TEAM_SCORE);
+            mTvCounter.setText(String.valueOf(mCounter));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(KEY_TEAM_SCORE, mCounter);
     }
 
     private void findViews(View view) {
