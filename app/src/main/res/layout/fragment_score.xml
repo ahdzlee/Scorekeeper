@@ -21,8 +21,7 @@
 
     <ImageButton
         android:id="@+id/btnPlus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ScoreButtonStyle"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:contentDescription="Plus Button"
@@ -32,8 +31,7 @@
 
     <ImageButton
         android:id="@+id/btnMinus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ScoreButtonStyle"
         android:layout_marginRight="16dp"
         android:layout_marginTop="24dp"
         android:contentDescription="Minus Button"
